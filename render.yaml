@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: notes-app
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build && cd ../backend && npm install && npm run build
+    startCommand: node backend/dist/main.js
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: notes-app-db
+          property: connectionString
+      - key: JWT_SECRET
+        value: notes-app-secret-key-2024
+      - key: CORS_ORIGIN
+        value: https://notes-app.onrender.com
+
+databases:
+  - name: notes-app-db
+    databaseName: notes_app
+    region: oregon
+    plan: free
+    postgresMajorVersion: 16
