@@ -24,7 +24,7 @@ import { Category } from './entities/category.entity';
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
-      exclude: ['/api/(.*)'],
+      exclude: ['/api{*path}'],
     }),
     AuthModule,
     NotesModule,
