@@ -20,6 +20,7 @@ import { Category } from './entities/category.entity';
       database: process.env.DB_NAME || 'notes_app',
       entities: [Note, Category],
       synchronize: true,
+      ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
