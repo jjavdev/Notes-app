@@ -4,10 +4,6 @@ Full-stack note-taking SPA with categories, filtering, and authentication.
 
 Built for the Ensolvers Full Stack implementation exercise.
 
-## Live Demo
-
-[Deploy pending — see instructions below]
-
 ## Exercise Description
 
 ### Phase 1 (Required) — Note Management
@@ -51,7 +47,7 @@ The application follows a **Single Page Application (SPA)** architecture:
 | Package Manager | npm | ^10.0.0 |
 | Docker (optional) | Docker Compose | 24.x+ |
 | Shell | bash | 5.x |
-| OS | Linux / macOS / WSL2 / Windows (with local PostgreSQL) |
+| OS | Linux / macOS / WSL2 |
 
 ## Architecture
 
@@ -75,15 +71,12 @@ notes-app/
 │   └── package.json
 ├── docker-compose.yml    → PostgreSQL service (for Linux/macOS)
 ├── start.sh              → One-command launcher
-├── render.yaml           → Deployment config for Render
 └── README.md
 ```
 
-## Quick Start
+## Prerequisites
 
-### Prerequisites
-
-Install the following on your system:
+Install the following on your system before running the app:
 
 - **Node.js** ^22.16.0
 - **npm** ^10.0.0
@@ -91,7 +84,9 @@ Install the following on your system:
 - **Docker** 24.x+ (optional — for the Docker Compose PostgreSQL service)
 - **bash** 5.x
 
-### One-command startup (recommended for Linux/macOS)
+## Quick Start (Linux / macOS / WSL2)
+
+### One-command startup (recommended)
 
 ```bash
 chmod +x start.sh
@@ -104,11 +99,11 @@ This script will:
 3. Build the backend
 4. Start backend on port 3001 and frontend on port 5173
 
-### Manual startup (all platforms)
+### Manual startup
 
 #### 1. Database
 
-**Option A — Docker (Linux/macOS):**
+**Option A — Docker (recommended):**
 ```bash
 docker compose up -d
 ```
@@ -123,7 +118,7 @@ Make sure PostgreSQL is running on port 5432 with:
 
 ```bash
 cd backend
-cp ../.env.example .env   # or configure environment variables
+cp ../.env.example .env
 npm install
 npm run build
 node dist/main.js
@@ -145,8 +140,6 @@ The app will be available at http://localhost:5173
 
 ## Access
 
-### Frontend
-
 Open http://localhost:5173 in your browser.
 
 ### Default Credentials
@@ -156,6 +149,8 @@ Open http://localhost:5173 in your browser.
 | `admin` | `admin` |
 
 ### API Endpoints (require `Authorization: Bearer <token>`)
+
+The frontend proxies `/api/*` requests to the backend, so all endpoints are accessed via the frontend URL in development.
 
 #### Auth
 | Method | Endpoint | Description |
@@ -181,23 +176,10 @@ Open http://localhost:5173 in your browser.
 | POST | `/api/categories` | Create category |
 | DELETE | `/api/categories/:id` | Delete category |
 
-## Deployment
-
-### Deploy to Render (free)
-
-1. Create an account at [render.com](https://render.com)
-2. Connect your GitHub repository
-3. Use **New + → Blueprint** and select this repository
-4. Render will read `render.yaml` and automatically provision:
-   - A PostgreSQL database
-   - A Node.js web service
-5. After ~5 minutes the app will be live at a URL like `https://notes-app.onrender.com`
-
 ### Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DATABASE_URL` | PostgreSQL connection string (Render auto-provides this) | - |
 | `DB_HOST` | Database host | `localhost` |
 | `DB_PORT` | Database port | `5432` |
 | `DB_USERNAME` | Database user | `postgres` |
